@@ -1,0 +1,86 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class ColorMeaningChecker {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Step 1: Create color map
+        Map<String, String> colorMap = new HashMap<>();
+        colorMap.put("Red", "Symbolizes passion, energy, and love.");
+        colorMap.put("Blue", "Represents calm, trust, and intelligence.");
+        colorMap.put("Green", "Associated with nature, growth, and harmony.");
+        colorMap.put("Yellow", "Symbolizes happiness, optimism, and creativity.");
+        colorMap.put("Black", "Represents power, elegance, and mystery.");
+
+        while (true) {
+            System.out.println("\n--- Color Meaning Checker ---");
+            System.out.println("Options:");
+            System.out.println("1. Check color meaning");
+            System.out.println("2. Add a new color and its meaning");
+            System.out.println("3. Show all colors");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option (1-4): ");
+            
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1":
+                    // Step 2: Ask user for color name
+                    System.out.print("Enter a color name: ");
+                    String color = scanner.nextLine().trim();
+
+                    // Step 3: Check if color exists
+                    if (color.isEmpty()) {
+                        System.out.println("Error: Color name cannot be blank.");
+                    } else if (colorMap.containsKey(color)) {
+                        System.out.println(color + ": " + colorMap.get(color));
+                    } else {
+                        System.out.println("Color not found. Try again.");
+                    }
+                    break;
+
+                case "2":
+                    // Step 5: Add new color meaning
+                    System.out.print("Enter new color name: ");
+                    String newColor = scanner.nextLine().trim();
+                    if (newColor.isEmpty()) {
+                        System.out.println("Error: Color name cannot be blank.");
+                        break;
+                    }
+                    if (colorMap.containsKey(newColor)) {
+                        System.out.println("This color already exists.");
+                        break;
+                    }
+                    System.out.print("Enter meaning for " + newColor + ": ");
+                    String meaning = scanner.nextLine().trim();
+                    if (meaning.isEmpty()) {
+                        System.out.println("Error: Meaning cannot be blank.");
+                        break;
+                    }
+                    colorMap.put(newColor, meaning);
+                    System.out.println(newColor + " added successfully.");
+                    break;
+
+                case "3":
+                    // Step 6: Show all available colors
+                    System.out.println("Available colors:");
+                    for (String key : colorMap.keySet()) {
+                        System.out.println("- " + key);
+                    }
+                    break;
+
+                case "4":
+                    System.out.println("Exiting... Thank you!");
+                    scanner.close();
+                    return;
+
+                default:
+                    // Step 7: Error handling for invalid option
+                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+            }
+        }
+    }
+}
